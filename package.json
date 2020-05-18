@@ -1,0 +1,33 @@
+{
+  "name": "three-vector-auto-clone",
+  "version": "1.0.0",
+  "description": "Auto clone() of THREE.Vector3 at compile time.",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack",
+    "prestart": "tsc threeVectorCloneTransformer.ts",
+    "prebuild": "tsc threeVectorCloneTransformer.ts"
+  },
+  "author": "twinkfrag",
+  "license": "MIT",
+  "dependencies": {
+    "@types/webpack": "^4.41.12",
+    "html-webpack-plugin": "^4.2.1",
+    "three": "^0.115.0",
+    "ts-loader": "^7.0.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  },
+  "devDependencies": {},
+  "main": "src/index.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twinkfrag/three-vector-auto-clone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/twinkfrag/three-vector-auto-clone/issues"
+  },
+  "homepage": "https://github.com/twinkfrag/three-vector-auto-clone#readme"
+}
