@@ -1,8 +1,6 @@
 import * as ts from "typescript";
 import * as path from "path";
 
-// "import(*)"を除いたTypeName
-const regex_typename = new RegExp(/^(?:import\(.*?\)\.)?(.*)$/);
 // エントリーポイントより外側(node_modules等)を除外
 const regex_filename = new RegExp(/^(?!\.{2}).*/);
 const requireCloneClasses = [
@@ -14,16 +12,14 @@ const requireCloneClasses = [
 const requireCloneMembers = [
     "add",
     "addScalar",
-    "addScaledVector",
     "addVectors",
+    "addScaledVector",
     "sub",
     "subScalar",
     "subVectors",
     "multiply",
     "multiplyScalar",
     "multiplyVectors",
-    "divide",
-    "divideScalar",
 
     "applyEuler",
     "applyAxisAngle",
@@ -35,6 +31,9 @@ const requireCloneMembers = [
     "unproject",
     "transformDirection",
 
+    "divide",
+    "divideScalar",
+
     "min",
     "max",
     "clamp",
@@ -45,6 +44,7 @@ const requireCloneMembers = [
     "round",
     "roundToZero",
     "negate",
+
     "normalize",
     "lerp",
     "lerpVectors",
@@ -73,6 +73,8 @@ const transformerFactory = (program: ts.Program) => (context: ts.TransformationC
                 const type = checker.getTypeAtLocation(exp.expression);
                 const typeNameWithNamespace = checker.typeToString(type, undefined, ts.TypeFormatFlags.UseFullyQualifiedType);
 
+                // THREEのVector3かどうかはimportのパスによるのでわからない。
+                // そのため、'.Vector3'で終わるクラスを対象とする。
                 let isTargetClass = false;
                 for (const reqireCloneClass of requireCloneClasses) {
                     if (typeNameWithNamespace.endsWith(reqireCloneClass)) {

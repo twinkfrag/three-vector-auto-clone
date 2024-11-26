@@ -1,5 +1,5 @@
-// import * as THREE from "three";
-import * as THREE from "../@sample/three-another"
+import * as THREE from "three";
+// import * as THREE from "../@sample/three-another"
 
 const v1: THREE.Vector3 = new THREE.Vector3(1, 2, 3);
 const v2: THREE.Vector3 = v1.addScalar(4);
