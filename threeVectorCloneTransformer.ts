@@ -6,9 +6,9 @@ const regex_typename = new RegExp(/^(?:import\(.*?\)\.)?(.*)$/);
 // エントリーポイントより外側(node_modules等)を除外
 const regex_filename = new RegExp(/^(?!\.{2}).*/);
 const requireCloneClasses = [
-    "THREE.Vector2",
-    "THREE.Vector3",
-    "THREE.Vector4",
+    ".Vector2",
+    ".Vector3",
+    ".Vector4",
 ];
 // setXXを除いた，thisを返すメンバを指定
 const requireCloneMembers = [
@@ -71,10 +71,18 @@ const transformerFactory = (program: ts.Program) => (context: ts.TransformationC
                 const exp = (node as ts.PropertyAccessExpression);
 
                 const type = checker.getTypeAtLocation(exp.expression);
-                if (requireCloneClasses.includes(
-                    regex_typename.exec(checker.typeToString(type, undefined, ts.TypeFormatFlags.UseFullyQualifiedType))[1])) {
-                    if (requireCloneMembers.includes(exp.name.text)) {
+                const typeNameWithNamespace = checker.typeToString(type, undefined, ts.TypeFormatFlags.UseFullyQualifiedType);
 
+                let isTargetClass = false;
+                for (const reqireCloneClass of requireCloneClasses) {
+                    if (typeNameWithNamespace.endsWith(reqireCloneClass)) {
+                        isTargetClass = true;
+                        break;
+                    }
+                }
+
+                if (isTargetClass) {
+                    if (requireCloneMembers.includes(exp.name.text)) {
                         node = ts.factory.createPropertyAccessExpression(
                             ts.factory.createCallExpression(
                                 ts.factory.createPropertyAccessExpression(

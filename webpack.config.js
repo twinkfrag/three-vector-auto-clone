@@ -10,8 +10,8 @@ module.exports = {
     entry: path.resolve(__dirname, 'src', 'index.ts'),
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'app.js',
-        chunkFilename: 'vendor.js',
+        filename: '[name].js',
+        chunkFilename: '[id].[chunkhash].js',
     },
     resolve: {
         extensions: ['.js', '.ts'],

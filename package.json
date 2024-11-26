@@ -11,6 +11,7 @@
   "author": "twinkfrag",
   "license": "MIT",
   "dependencies": {
+    "@types/three": "^0.170.0",
     "html-webpack-plugin": "^5.6.3",
     "three": "^0.170.0",
     "ts-loader": "^9.5.1",
