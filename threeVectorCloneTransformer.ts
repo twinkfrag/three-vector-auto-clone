@@ -75,11 +75,11 @@ const transformerFactory = (program: ts.Program) => (context: ts.TransformationC
                     regex_typename.exec(checker.typeToString(type, undefined, ts.TypeFormatFlags.UseFullyQualifiedType))[1])) {
                     if (requireCloneMembers.includes(exp.name.text)) {
 
-                        node = ts.createPropertyAccess(
-                            ts.createCall(
-                                ts.createPropertyAccess(
+                        node = ts.factory.createPropertyAccessExpression(
+                            ts.factory.createCallExpression(
+                                ts.factory.createPropertyAccessExpression(
                                     exp.expression,
-                                    ts.createIdentifier("clone")
+                                    ts.factory.createIdentifier("clone")
                                 ),
                                 undefined,
                                 []
